@@ -1,0 +1,146 @@
+<!-- Modal -->
+
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-replace="true">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Add new player</h4>
+      </div>
+              <form role="form" name="signup_form" novalidate ng-submit="signupForm()">
+      <div class="modal-body">
+
+		  
+		  <div class="form-group">
+		    <input type="text" class="form-control input-lg" id="first_name" placeholder="First name" ng-model="user.first_name" required>
+		  </div>
+		  <div class="form-group">
+		    <input type="text" class="form-control input-lg" id="last_name" placeholder="Last name" ng-model="user.last_name" required>
+		  </div>
+		  <div class="form-group">
+		    <input type="email" class="form-control input-lg" id="email" placeholder="Enter email" ng-model="user.email" required>
+		  </div>
+		  <div class="form-group">
+		    <label for="team">Team</label>
+			<select ng-model="user.team" class="form-control input-lg" required>
+			    <option ng-selected="{{team.id == user.team}}"
+			            ng-repeat="team in teams"
+			            value="{{team.id}}">
+						{{team.name}}
+			    </option>
+			</select>
+
+		  </div>
+		  
+		  
+		  <div class="form-group">
+		    <label for="team">Gender</label>
+			<select ng-model="user.gender" class="form-control input-lg" required>
+			    <option value="male">Male</option>
+			    <option value="female">Female</option>			    
+			</select>
+
+		  </div>
+		  
+		  
+		  
+		  <div class="form-group">
+		    <label for="membership">Membership</label>
+			<select ng-model="user.membership" class="form-control input-lg" required>
+			    <option ng-selected="{{membership.id == 'general'}}"
+			            ng-repeat="membership in memberships"
+			            value="{{membership.id}}">
+						{{membership.name}}
+			    </option>
+			</select>
+
+		  </div>
+		  
+		  
+		  <div class="form-group">
+		  	<label for="membership">Member Image</label>
+		  	<p>Take a picture of the player</p>
+		  	<img ng-show="user.image" ng-src="http://londongdhandball.co.uk/images/uploadsgd/thumb_400/{{user.image}}" class="img-responsive img-rounded" />
+		  	<hr>
+
+
+<span ng-file-select="onFileSelect($files)" data-multiple="true" title="select file" onclick="this.value = null" class="upload-button btn btn-lg btn-info"><i class="fa fa-camera-retro"></i> <span class="" ng-show="!user.image">Take a picture</span>
+<span class="" ng-show="user.image">Take another photo</span>
+	
+</span>
+			  
+		  
+		  </div>
+
+	
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success btn-lg" ng-disabled="signup_form.$invalid">Save new user</button>
+      </div>
+      
+      	</form>
+      
+    </div>
+
+</div>
+
+<h1>GD players</h1>
+
+<div class="row">
+
+	<div class="col-md-12"><input type="text" ng-model="search" placeholder="Search player..." class="form-control input-lg" /></div>	
+	
+
+	
+</div>
+<hr>
+<div class="row">
+	<div class="col-md-3">
+		<button class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Add new player</button>
+	</div>
+</div>
+
+<hr>
+<div class="row">
+	<div class="col-md-12">
+		<table class="table table-players">
+			<tr data-ng-repeat="player in playerList | filter:search track by $index">
+				<td class="playerImage">
+				<div ng-show="player.image">
+				<a href="{{siteUrl}}/images/uploadsgd/thumb_400/{{player.image}}" title="{{player.name}}" class="fancybox">
+					<img src="{{siteUrl}}/images/uploadsgd/thumb_250/{{player.image}}" class="img-responsive"/>
+				</a>					
+				</div>
+				<div ng-show="!player.image">
+					<img src="{{siteUrl}}/images/logoempty1.jpg" />
+				</div>
+				
+				
+				</td>
+				<td class="details1">
+					<div class="team">
+						{{player.team_name}}
+					</div>
+					<h3>{{player.name}}</h3>
+					<div class="position">
+						{{player.position}}
+					</div>
+				</td>
+	
+				
+			</tr>
+		</table>
+	</div>
+</div>
+
+<hr>
+<div class="row">
+	<div class="col-md-3">
+		<button class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Add new player</button>
+	</div>
+</div>
+
+<hr>
