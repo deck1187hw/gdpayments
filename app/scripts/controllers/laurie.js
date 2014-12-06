@@ -2,19 +2,23 @@
 
 /**
  * @ngdoc function
- * @name londongdpaymentsystemApp.controller:AboutCtrl
+ * @name londongdpaymentsystemApp.controller:LaurieCtrl
  * @description
- * # AboutCtrl
+ * # LaurieCtrl
  * Controller of the londongdpaymentsystemApp
  */
 angular.module('londongdpaymentsystemApp')
-  .controller('EventsCtrl', function ($scope) {
+  .controller('LaurieCtrl', function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
     
-    $scope.miguel = 'aaa';
+    $scope.callMum = function()
+    {
+		sweetAlert("Hi Mum");    
+    };
+    
     
   });

@@ -18,7 +18,7 @@ angular.module('londongdpaymentsystemApp').factory('playersService', function($h
 	  var promise;
       if ( !promise ) {
         promise = $http.jsonp($rootScope.siteUrl+'/index.php?option=com_gdpayments&task=get_players&tmpl=component&format=raw&callback=JSON_CALLBACK').then(function (response) {
-        
+        	console.log(response);
           return response.data;
         });
       }

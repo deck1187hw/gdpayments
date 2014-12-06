@@ -21,6 +21,7 @@ angular.module('londongdpaymentsystemApp')
 		var promise = playersService.getAllPlayers();
 		   promise.then(
           function(resp) { 
+       
               $scope.playerList = resp;
           },
           function(errordata) {
@@ -61,31 +62,11 @@ angular.module('londongdpaymentsystemApp')
 	  $scope.getTeamsList();
 	  
 	  
-	  /*
-	  $scope.getMembershipList = function()
-      {
-	    playersService.getMembershipList().then(function(d) {
-	      $scope.memberships = d;
-	    });		  		  
-      };
-	  $scope.getMembershipList();
-	  
-	  
-	  $scope.getTeamsList = function()
-      {
-	    teamsService.getAllTeams().then(function(d) {
-	      $scope.teams = d;
-	    });		  		  
-      };
-	  $scope.getTeamsList();
-	  
 
-	  */
 	  $scope.userimage = '';
 	 
 	  $scope.signupForm = function()
 	  {
-		  console.log($scope.user);
 		  $http({
 			    method: 'POST',
 			    url: $rootScope.siteUrl+'/index.php?option=com_gdpayments&task=register_user&tmpl=component&format=raw',
