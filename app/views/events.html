@@ -1,10 +1,33 @@
-Event:<br>
-<div data-ng-model="id">
-State:<input type="text" data-ng-model="events.state"><br>
-Created by:<input type="text" data-ng-model="events.created_by"><br>
-Type:<input type="text" data-ng-model="events.type"><br>
-Team:<input type="text" data-ng-model="events.team"><br>
-Date:<input type="text" data-ng-model="events.date"><br>
-Name:<input type="text" data-ng-model="events.name"><br>
-Description:<input type="text" data-ng-model="events.description"><br>
-Price:<input type="text" data-ng-model="events.price"><br>
+
+<div ng-repeat="event in events">
+  <h1>{{event.name}}</h1>
+ <dl>
+  <dt>State</dt>        <dd>{{event.state}}</dd>
+  <dt>Created by</dt>   <dd>{{event.created_by}}</dd>
+  <dt>Type</dt>         <dd>{{event.type}}</dd>
+  <dt>Team</dt>         <dd>{{event.team}}</dd>
+  <dt>Date</dt>         <dd>{{event.date}}</dd>
+  <dt>Description</dt>  <dd>{{event.description}}</dd>
+  <dt>Price &pound;</dt><dd>{{event.price}}</dd>
+</dl>
+</div>
+
+<style>
+dl {
+	vertical-align: center;
+}
+dt  {
+    clear:left;
+    float:left;
+    font-size:12px;
+    line-height:26px;
+    width:120px;
+}
+
+dd {
+    clear:right;
+    font-size:12px;
+    line-height:18px;
+    padding:4px 0 4px 40px;
+}
+</style>
