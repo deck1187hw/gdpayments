@@ -1,21 +1,26 @@
 <h1>London GD Handball Events</h1>
-<table class="table table-players">
-    <tr data-ng-repeat="event in eventList | orderBy : 'date' : reverse=true">
-      <td class="details1">
-        <div class="team">{{event.date | stringToTimestamp | date:'EEE dd MMM yyyy, H:mm'}}</div>
-        <h3>{{event.name}}</h3></td>
-      <td>State: {{event.state}}</td>
-      <td>Created by: {{event.created_by_name}} (id: {{event.created_by}})</td>
-      <td>Type: {{event.type}}</td>
-      <td>Team: {{event.team}}</td>
-      <td>Description: {{event.description}}</td>
-      <td>Price: &pound;{{event.price}}</td>
-    </tr>
-</table>
+
+
+
+
+
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-events">
+      <tr data-ng-repeat="event in eventList | orderBy : 'date' : reverse=true" data-ng-class="event.state == 1 ? 'event-enabled' : 'event-disabled'">
+        <td class="details1">
+          <div class="date">{{event.date | stringToTimestamp | date:'EEE dd MMM yyyy, H:mm'}}</div>
+          <h3>{{event.name}}</h3>
+        </td>
+        <td>State: {{event.state}}</td>
+        <td>Created by: {{event.created_by_name}} (id: {{event.created_by}})</td>
+        <td>Type: {{event.type}}</td>
+        <td>Team: {{event.team}}</td>
+        <td>Description: {{event.description}}</td>
+        <td>Price: &pound;{{event.price}}</td>
+      </tr>
+    </table>
+  </div>
 </div>
 
-<style>
-.table-events h3 {
-  font-size: large;
-}
-</style>
