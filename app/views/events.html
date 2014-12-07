@@ -1,14 +1,29 @@
 <h1>London GD Handball Events</h1>
 
+<div class="row">
+  <div class="col-md-12">
+    <input type="text" ng-model="search" placeholder="Search event..." class="form-control input-lg" />
+  </div> 
+</div>
+<hr>
 
 
+<!-- TODO LAURIE
+<div class="row">
+  <div class="col-md-3">
+    <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Add new event</button>
+  </div>
+</div>
+<hr>
+-->
 
 
 
 <div class="row">
   <div class="col-md-12">
     <table class="table table-events">
-      <tr data-ng-repeat="event in eventList | orderBy : 'date' : reverse=true" data-ng-class="event.state == 1 ? 'event-enabled' : 'event-disabled'">
+      <tr data-ng-repeat="event in eventList | orderBy:'date':reverse=true | filter:search"
+          data-ng-class="event.state == 1 ? 'event-enabled' : 'event-disabled'">
         <td class="details1">
           <div class="date">{{event.date | stringToTimestamp | date:'EEE dd MMM yyyy, H:mm'}}</div>
           <h3>{{event.name}}</h3>
