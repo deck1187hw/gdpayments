@@ -1,7 +1,4 @@
-
-{{eventList}}
-
-<div ng-repeat="event in events | orderBy: 'date'">
+<div ng-repeat="event in eventList | orderBy: 'date'">
   <h1>{{event.name}}</h1>
  <dl>
   <dt>State</dt>        <dd>{{event.state}}</dd>
