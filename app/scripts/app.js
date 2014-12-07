@@ -43,6 +43,12 @@ angular
   })
   .run(function($rootScope) {
   	$rootScope.siteUrl = 'http://londongdhandball.co.uk';
+  })
+  .filter('stringToTimestamp', function() {
+    return function(dateSTR) {
+        dateSTR = dateSTR.replace(/-/g, "/"); // Replaces hyphens with slashes
+        return Date.parse(dateSTR + " -0000"); // No TZ subtraction on this sample
+    }
   });
 
 function getUrlWithOptions(siteUrl, options) {

@@ -1,32 +1,21 @@
-<div ng-repeat="event in eventList | orderBy: 'date': reverse=true">
-  <h1>{{event.name}}</h1>
- <dl>
-  <dt>State</dt>          <dd>{{event.state}}</dd>
-  <dt>Created by</dt>     <dd>{{event.created_by_name}} (id: {{event.created_by}})</dd>
-  <dt>Type</dt>           <dd>{{event.type}}</dd>
-  <dt>Team</dt>           <dd>{{event.team}}</dd>
-  <dt>Date</dt>           <dd>{{event.date}}</dd>
-  <dt>Description</dt>    <dd>{{event.description}}</dd>
-  <dt>Price (&pound;)</dt><dd>{{event.price}}</dd>
-</dl>
+<h1>London GD Handball Events</h1>
+<table class="table table-players">
+    <tr data-ng-repeat="event in eventList | orderBy : 'date' : reverse=true">
+      <td class="details1">
+        <div class="team">{{event.date | stringToTimestamp | date:'EEE dd MMM yyyy, H:mm'}}</div>
+        <h3>{{event.name}}</h3></td>
+      <td>State: {{event.state}}</td>
+      <td>Created by: {{event.created_by_name}} (id: {{event.created_by}})</td>
+      <td>Type: {{event.type}}</td>
+      <td>Team: {{event.team}}</td>
+      <td>Description: {{event.description}}</td>
+      <td>Price: &pound;{{event.price}}</td>
+    </tr>
+</table>
 </div>
 
 <style>
-dl {
-	vertical-align: center;
-}
-dt  {
-    clear:left;
-    float:left;
-    font-size:12px;
-    line-height:26px;
-    width:120px;
-}
-
-dd {
-    clear:right;
-    font-size:12px;
-    line-height:18px;
-    padding:4px 0 4px 40px;
+.table-events h3 {
+  font-size: large;
 }
 </style>
