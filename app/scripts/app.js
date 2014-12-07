@@ -45,10 +45,10 @@ angular
   	$rootScope.siteUrl = 'http://londongdhandball.co.uk';
   });
 
-   function getUrlWithOptions(siteUrl, options) {
-    var fullUrl = siteUrl + '/index.php?';
-    for (var option in options) {
-      fullUrl += option + '=' + options[option] + '&';
-    }
-    return fullUrl;
+function getUrlWithOptions(siteUrl, options) {
+  var fullUrl = siteUrl + '/index.php?';
+  for (var option in options) {
+    fullUrl += option + '=' + options[option] + '&';
   }
+  return fullUrl;
+}
