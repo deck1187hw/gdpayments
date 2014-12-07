@@ -1,13 +1,13 @@
 <div ng-repeat="event in eventList | orderBy: 'date': reverse=true">
   <h1>{{event.name}}</h1>
  <dl>
-  <dt>State</dt>        <dd>{{event.state}}</dd>
-  <dt>Created by</dt>   <dd>{{event.created_by}}</dd>
-  <dt>Type</dt>         <dd>{{event.type}}</dd>
-  <dt>Team</dt>         <dd>{{event.team}}</dd>
-  <dt>Date</dt>         <dd>{{event.date}}</dd>
-  <dt>Description</dt>  <dd>{{event.description}}</dd>
-  <dt>Price &pound;</dt><dd>{{event.price}}</dd>
+  <dt>State</dt>          <dd>{{event.state}}</dd>
+  <dt>Created by</dt>     <dd>{{event.created_by_name}} (id: {{event.created_by}})</dd>
+  <dt>Type</dt>           <dd>{{event.type}}</dd>
+  <dt>Team</dt>           <dd>{{event.team}}</dd>
+  <dt>Date</dt>           <dd>{{event.date}}</dd>
+  <dt>Description</dt>    <dd>{{event.description}}</dd>
+  <dt>Price (&pound;)</dt><dd>{{event.price}}</dd>
 </dl>
 </div>
 
