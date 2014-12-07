@@ -17,23 +17,36 @@ angular.module('londongdpaymentsystemApp').factory('playersService', function($h
     getAllPlayers: function() {
 	  var promise;
       if ( !promise ) {
-        promise = $http.jsonp($rootScope.siteUrl+'/index.php?option=com_gdpayments&task=get_players&tmpl=component&format=raw&callback=JSON_CALLBACK').then(function (response) {
-        
+        var options = {
+          option: 'com_gdpayments',
+          task: 'get_players',
+          tmpl: 'component',
+          format: 'raw',
+          callback: 'JSON_CALLBACK'
+        };
+        var fullUrl = getUrlWithOptions($rootScope.siteUrl, options);
+        promise = $http.jsonp(fullUrl).then(function (response) {
           return response.data;
         });
       }
-      
       return promise;
     },
+
     getMembershipList: function() {
 		var promise;
       if ( !promise ) {
-        promise = $http.jsonp($rootScope.siteUrl+'/index.php?option=com_gdpayments&task=get_memberships&tmpl=component&format=raw&callback=JSON_CALLBACK').then(function (response) {
-
+        var options = {
+          option: 'com_gdpayments',
+          task: 'get_memberships',
+          tmpl: 'component',
+          format: 'raw',
+          callback: 'JSON_CALLBACK'
+        };
+        var fullUrl = getUrlWithOptions($rootScope.siteUrl, options);
+        promise = $http.jsonp(fullUrl).then(function (response) {
           return response.data;
         });
       }
-      
       return promise;
     }
   };
