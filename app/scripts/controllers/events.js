@@ -39,7 +39,41 @@ angular.module('londongdpaymentsystemApp')
       );
     }
     getTeamList();
+
+
+    $scope.eventForm = function()
+    {
+      console.log($scope.user);
+      console.log("TODO Laurie eventForm");
+      /*var options = {
+        option: "com_gdpayments",
+        task: "create_event",
+        tmpl: "component",
+        format: "raw"
       }
-    );
+      $http({
+          method: 'POST',
+          url: getUrlWithOptions($rootScope.siteUrl, options),
+          data: $scope.user,
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+          transformRequest: function(obj) {
+              var str = [];
+              for(var p in obj){
+              str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]));    
+              }             
+              return str.join('&');
+          },
+          
+       }).success(function(data) {
+         if (data === 'exists') {
+           sweetAlert('Oops...', 'This event already exists, please check the list', 'error');
+           
+         } else {
+           $scope.user = {};
+           sweetAlert('OK', 'This event has been registered, you can select it on the list', 'success');
+           $scope.getEventList();
+         }
+      });*/
+    };
   }
 );
