@@ -10,7 +10,12 @@
 
 angular.module('londongdpaymentsystemApp')
   .controller('EventsCtrl',
-  function ($scope, $http, eventsService, teamsService) {
+  function ($scope, $http, $rootScope, eventsService, teamsService) {
+
+
+    $scope.event = {};
+    $scope.eventTypeList = ["training", "match", "other event"];
+    $scope.today = new Date().toISOString().split("T")[0];
 
 
     var getEventList = function() {
@@ -37,43 +42,66 @@ angular.module('londongdpaymentsystemApp')
           console.log('Error', errordata);
         }
       );
-    }
+    };
     getTeamList();
+
+
+    var getSelectedTeams = function() {
+      var promise = teamsService.getAllTeams();
+      promise.then(
+        function(resp) {
+          $scope.selectedTeams = [];
+          for (var i = 0; i < resp.length; ++i) {
+            var team = resp[i];
+            $scope.selectedTeams[i] = { id: team.id, name: team.name, selected: false }
+          }
+        },
+        function(errordata) {
+          console.log('Error', errordata);
+        }
+      );
+    }
+    getSelectedTeams();
 
 
     $scope.eventForm = function()
     {
-      console.log($scope.user);
-      console.log("TODO Laurie eventForm");
-      /*var options = {
-        option: "com_gdpayments",
-        task: "create_event",
-        tmpl: "component",
-        format: "raw"
-      }
-      $http({
-          method: 'POST',
-          url: getUrlWithOptions($rootScope.siteUrl, options),
-          data: $scope.user,
-          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-          transformRequest: function(obj) {
-              var str = [];
-              for(var p in obj){
-              str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]));    
-              }             
-              return str.join('&');
-          },
-          
-       }).success(function(data) {
-         if (data === 'exists') {
-           sweetAlert('Oops...', 'This event already exists, please check the list', 'error');
-           
+      $scope.event.selectedTeams = $scope.selectedTeams;
+
+      var options = { task: "create_event" };
+      var fullUrl = getUrlWithOptions($rootScope.siteUrl, options);
+
+      var header = {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      };
+
+      var messageObject = {
+        method: 'POST',
+        url: fullUrl,
+        data: $scope.event,
+        headers: header,
+        transformRequest: function(objects) {
+          var str = [];
+          for (var obj in objects) {
+            str.push(encodeURIComponent(obj) + '=' + encodeURIComponent(objects[obj]));    
+          }         
+          return str.join('&');
+        }
+      };
+
+      console.log('Message sent', JSON.stringify(messageObject));
+
+      $http(messageObject).success(function(data) {
+        if (data === 'exists') {
+           sweetAlert('Oops...', 'This event already exists, please check the list or contact media@londongdhandball.co.uk', 'error');
          } else {
-           $scope.user = {};
+          console.log('Message received', data);
+           $scope.event = {};
+           getSelectedTeams();
            sweetAlert('OK', 'This event has been registered, you can select it on the list', 'success');
-           $scope.getEventList();
+           getEventList();
          }
-      });*/
+      });
     };
   }
 );
