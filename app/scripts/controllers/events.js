@@ -12,12 +12,6 @@ angular.module('londongdpaymentsystemApp')
   .controller('EventsCtrl',
   function ($scope, $http, $rootScope, eventsService, teamsService) {
 
-
-    $scope.event = {};
-    $scope.eventTypeList = ["training", "match", "other event"];
-    $scope.today = new Date().toISOString().split("T")[0];
-
-
     var getEventList = function() {
       var promise = eventsService.getAllEvents();
       promise.then(
@@ -29,7 +23,6 @@ angular.module('londongdpaymentsystemApp')
         }
       );
     };
-    getEventList();
 
 
     var getTeamList = function() {
@@ -43,7 +36,6 @@ angular.module('londongdpaymentsystemApp')
         }
       );
     };
-    getTeamList();
 
 
     var getSelectedTeams = function() {
@@ -61,11 +53,25 @@ angular.module('londongdpaymentsystemApp')
         }
       );
     }
-    getSelectedTeams();
 
 
-    $scope.eventForm = function()
+    var init = function() {
+      $scope.event = { created_by: 0 };// TODO Laurie: get connected user id $scope.user.id };
+      $scope.eventTypeList = ["training", "match", "other event"];
+      $scope.today = new Date().toISOString().split("T")[0];
+      getEventList();
+      getTeamList();
+      getSelectedTeams();
+    };
+    init();
+
+
+    $scope.eventForm = function(constData)
     {
+      for (var key in constData) {
+        $scope.event[key] = constData[key];
+      }
+      console.log('data transmitted', $scope.event);
       $scope.event.selectedTeams = $scope.selectedTeams;
 
       var options = { task: "create_event" };
@@ -89,17 +95,12 @@ angular.module('londongdpaymentsystemApp')
         }
       };
 
-      console.log('Message sent', JSON.stringify(messageObject));
-
       $http(messageObject).success(function(data) {
         if (data === 'exists') {
            sweetAlert('Oops...', 'This event already exists, please check the list or contact media@londongdhandball.co.uk', 'error');
          } else {
-          console.log('Message received', data);
-           $scope.event = {};
-           getSelectedTeams();
            sweetAlert('OK', 'This event has been registered, you can select it on the list', 'success');
-           getEventList();
+           init();
          }
       });
     };

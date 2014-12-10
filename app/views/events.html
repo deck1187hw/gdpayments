@@ -13,13 +13,8 @@
       <h4 class="modal-title" id="modal-training-label">Add new training</h4>
     </div>
 
-    <form role="form" name="training_event_form" novalidate data-ng-submit="eventForm()">
+    <form role="form" name="training_event_form" novalidate data-ng-submit="eventForm({ name: 'Training', type: 'Training', price: 0 })">
       <div class="modal-body">
-
-        <input type="hidden" id="name" data-ng-init="event.name='Training'" required>
-        <input type="hidden" id="type" data-ng-init="event.type='Training'" required>
-        <input type="hidden" id="price" data-ng-init="event.price='0'" required>
-        <input type="hidden" id="created_by" data-ng-init="event.created_by=user.id" required>
 
         <div class="form-group team-group">
           <strong>Teams</strong>
@@ -67,30 +62,24 @@
                 <span aria-hidden="true">&times;</span>
                 <span class="sr-only">Close</span>
             </button>
-            <h4 class="modal-title" id="modal-training-label">Add new match</h4>
+            <h4 class="modal-title" id="modal-match-label">Add new match</h4>
         </div>
         
-        <form role="form" name="training_event_form" novalidate data-ng-submit="eventForm()">
+        <form role="form" name="match_event_form" novalidate data-ng-submit="eventForm({ type: 'Match' })">
             <div class="modal-body">
-                
-                <input type="hidden" id="type" data-ng-init="event.type='Match'" required>
-                <input type="hidden" id="price" data-ng-init="event.price='0'" required>
-                <input type="hidden" id="created_by" data-ng-init="event.created_by=user.id" required>
                     
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" class="form-control input-lg" placeholder="Enter name" id="description" data-ng-model="name">
+                    <input type="text" class="form-control input-lg" placeholder="Enter name" id="description" data-ng-model="event.name" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="team">Team</label>
-                    <select data-ng-model="teams" class="form-control input-lg" required>
-                        <option ng-selected="{{team.id == user.team}}"
-                            ng-repeat="team in teams"
-                            value="{{team.id}}">
-                            {{team.name}}
-                        </option>
-                    </select>
+                  <label for="team">Team</label>
+                  <select data-ng-model="user.team" class="form-control input-lg" required>
+                    <option data-ng-selected="{{team.id == user.team}}" data-ng-repeat="team in teams" value="{{team.id}}">
+                      {{team.name}}
+                    </option>
+                  </select>
                 </div>
                                 
                 <div class="form-group">
@@ -101,6 +90,11 @@
                 <div class="form-group">
                     <label for="time">Time</label>
                     <input type="time" class="form-control input-lg" data-ng-model="event.time" data-ng-init="event.time='20:00'" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="price">Price (&pound;)</label>
+                    <input type="price" class="form-control input-lg" data-ng-model="event.price" data-ng-init="event.price='0'" required>
                 </div>
                                 
                 <div class="form-group">
