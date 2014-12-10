@@ -115,6 +115,68 @@
 
 
 
+<div class="modal fade" id="modal-event" tabindex="-1" role="dialog" aria-labelledby="modal-event-label" aria-hidden="true" data-replace="true">
+    <div class="modal-content">
+        {{user}}
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Close</span>
+            </button>
+            <h4 class="modal-title" id="modal-event-label">Add new event</h4>
+        </div>
+        
+        <form role="form" name="event_form" novalidate data-ng-submit="eventForm({ type: 'Other' })">
+            <div class="modal-body">
+                    
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control input-lg" placeholder="Enter name" id="description" data-ng-model="event.name" required>
+                </div>
+                
+                <div class="form-group team-group">
+                  <strong>Teams</strong>
+                  <ul>
+                    <li data-ng-repeat="team in selectedTeams" class="team-item">
+                      <input type="checkbox" data-ng-model="team.selected" data-ng-init="team.selected=true">
+                      <label for="team-{{team.id}}" class="team-label">{{team.name}}</label>
+                    </li>
+                  </ul>
+                </div>
+                                
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <input type="date" class="form-control input-lg" data-ng-model="event.date" data-ng-init="event.date=today" required>
+                </div>
+                                
+                <div class="form-group">
+                    <label for="time">Time</label>
+                    <input type="time" class="form-control input-lg" data-ng-model="event.time" data-ng-init="event.time='20:00'" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="price">Price (&pound;)</label>
+                    <input type="price" class="form-control input-lg" data-ng-model="event.price" data-ng-init="event.price='0'" required>
+                </div>
+                                
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <input type="text" class="form-control input-lg" placeholder="Enter description" id="description" data-ng-model="event.description">
+                </div>
+                                
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-success btn-lg" ng-disabled="event_form.$invalid">Save new match</button>
+            </div>
+            
+        </form>
+    </div>
+</div>
+
+
+
 <div class="row">
   <div class="col-md-12">
     <input type="text" ng-model="search" placeholder="Search event..." class="form-control input-lg" />

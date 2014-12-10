@@ -57,7 +57,7 @@ angular.module('londongdpaymentsystemApp')
 
     var init = function() {
       $scope.event = { created_by: 0 };// TODO Laurie: get connected user id $scope.user.id };
-      $scope.eventTypeList = ["training", "match", "other event"];
+      $scope.eventTypeList = ["training", "match", "event"];
       $scope.today = new Date().toISOString().split("T")[0];
       getEventList();
       getTeamList();
