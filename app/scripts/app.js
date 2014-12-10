@@ -53,6 +53,18 @@ angular
 
 function getUrlWithOptions(siteUrl, options) {
   var fullUrl = siteUrl + '/index.php?';
+  if (options.option === undefined) {
+    options.option = "com_gdpayments";
+  }
+  if (options.tmpl === undefined) {
+    options.tmpl = "component";
+  }
+  if (options.format === undefined) {
+    options.format = "raw";
+  }
+  if (options.callback === undefined) {
+    options.callback = 'JSON_CALLBACK';
+  }
   for (var option in options) {
     fullUrl += option + '=' + options[option] + '&';
   }

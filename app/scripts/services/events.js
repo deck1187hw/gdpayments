@@ -13,13 +13,7 @@ angular.module('londongdpaymentsystemApp').factory('eventsService', function($ht
   	getAllEvents: function () {
 	  var promise;
       if (!promise) {
-      	var options = {
-          option: 'com_gdpayments',
-          task: 'get_events',
-          tmpl: 'component',
-          format: 'raw',
-          callback: 'JSON_CALLBACK'
-        };
+      	var options = { task: 'get_events' };
         var fullUrl = getUrlWithOptions($rootScope.siteUrl, options);
         promise = $http.jsonp(fullUrl).then(function (response) {
           return response.data;
