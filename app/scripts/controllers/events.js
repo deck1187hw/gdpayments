@@ -45,8 +45,9 @@ angular.module('londongdpaymentsystemApp')
           $scope.selectedTeams = [];
           for (var i = 0; i < resp.length; ++i) {
             var team = resp[i];
-            $scope.selectedTeams[i] = { id: team.id, name: team.name, selected: false }
+            $scope.selectedTeams[i] = { id: team.id, name: team.name, selected: false };
           }
+          $scope.filters.teams = $scope.selectedTeams;
         },
         function(errordata) {
           console.log('Error', errordata);
@@ -57,8 +58,9 @@ angular.module('londongdpaymentsystemApp')
 
     var init = function() {
       $scope.event = { created_by: 0 };// TODO Laurie: get connected user id $scope.user.id };
-      $scope.eventTypeList = ["training", "match", "event"];
+      $scope.eventTypeList = ["training", "match", "other event"];
       $scope.today = new Date().toISOString().split("T")[0];
+      $scope.filters = {};
       getEventList();
       getTeamList();
       getSelectedTeams();
@@ -66,13 +68,15 @@ angular.module('londongdpaymentsystemApp')
     init();
 
 
-    $scope.eventForm = function(constData)
+    $scope.eventForm = function()
     {
-      for (var key in constData) {
-        $scope.event[key] = constData[key];
+      $scope.event.selectedTeams = [];
+      for (var team in $scope.selectedTeams) {
+        if ($scope.selectedTeams[team].selected) {
+          $scope.event.selectedTeams.push($scope.selectedTeams[team].id);
+        }
       }
-      console.log('data transmitted', $scope.event);
-      $scope.event.selectedTeams = $scope.selectedTeams;
+      console.log('event data transmitted', $scope.event);
 
       var options = { task: "create_event" };
       var fullUrl = getUrlWithOptions($rootScope.siteUrl, options);
@@ -89,18 +93,19 @@ angular.module('londongdpaymentsystemApp')
         transformRequest: function(objects) {
           var str = [];
           for (var obj in objects) {
-            str.push(encodeURIComponent(obj) + '=' + encodeURIComponent(objects[obj]));    
+            str.push(encodeURIComponent(obj) + '=' + encodeURIComponent(objects[obj]));
           }         
           return str.join('&');
         }
       };
 
       $http(messageObject).success(function(data) {
-        if (data === 'exists') {
-           sweetAlert('Oops...', 'This event already exists, please check the list or contact media@londongdhandball.co.uk', 'error');
-         } else {
-           sweetAlert('OK', 'This event has been registered, you can select it on the list', 'success');
-           init();
+        if (data.indexOf('exists') > -1) {
+          sweetAlert('Oops...', 'This event already exists, please check the list or contact media@londongdhandball.co.uk', 'error');
+        } else {
+          console.log('data received', data);
+          sweetAlert('OK', 'This event has been registered, you can select it on the list', 'success');
+          init();
          }
       });
     };
