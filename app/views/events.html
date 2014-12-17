@@ -1,2 +1,117 @@
-<p>This is the events.</p>
-{{awesomeThings}}
+<h1>London GD Handball Events</h1>
+
+
+
+<div class="modal fade" id="modal-event" tabindex="-1" role="dialog" aria-labelledby="modal-event-label" aria-hidden="true" data-replace="true">
+  <div class="modal-content">
+    {{user}}
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+      </button>
+      <h4 class="modal-title" id="modal-event-label">Add new event</h4>
+    </div>
+
+    <form role="form" name="event_form" novalidate data-ng-submit="eventForm()">
+      <div class="modal-body">
+
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control input-lg" placeholder="Enter name" id="description" data-ng-model="event.name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="team">Event type</label>
+          <select data-ng-model="event.type" class="form-control input-lg" required>
+            <option data-ng-repeat="eventType in eventTypeList" value="{{eventType}}">
+              {{eventType}}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group team-group">
+          <strong>Teams</strong>
+          <ul>
+            <li data-ng-repeat="team in selectedTeams" class="team-item">
+              <input type="checkbox" data-ng-model="team.selected" data-ng-init="team.selected=true">
+              <label for="team-{{team.id}}" class="team-label">{{team.name}}</label>
+            </li>
+          </ul>
+        </div>
+
+        <div class="form-group">
+          <label for="date">Date</label>
+          <input type="date" class="form-control input-lg" data-ng-model="event.date" data-ng-init="event.date=today" required>
+        </div>
+
+        <div class="form-group">
+          <label for="time">Time</label>
+          <input type="time" class="form-control input-lg" data-ng-model="event.time" data-ng-init="event.time='20:00'" required>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <input type="text" class="form-control input-lg" placeholder="Enter description" id="description" data-ng-model="event.description">
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success btn-lg" ng-disabled="event_form.$invalid">Save new event</button>
+      </div>
+      
+    </form>
+  </div>
+</div>
+
+
+
+<div class="row">
+  <div class="col-md-12">
+    <input type="text" ng-model="search" placeholder="Search event..." class="form-control input-lg" />
+  </div> 
+</div>
+<hr>
+
+
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="col-md-3">
+      <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#modal-event"><i class="fa fa-plus"></i> Add new event</button>
+    </div>
+  </div>
+</div>
+<hr>
+
+
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-events">
+      <tr data-ng-repeat="event in eventList | orderBy:'date':reverse=true | filter:search"
+          data-ng-class="{'event-enabled': event.state == 1, 'event-disabled': event.state != 1, 'training-event': event.type == 'training', 'match-event': event.type === 'match-event', 'other-event': event.type == 'other-event'}">
+        <td class="details1">
+          <a href="#/events/{{event.id}}">
+            <div class="date">{{event.date | stringToTimestamp | date:'EEE dd MMM yyyy, H:mm'}}</div>
+            <h3>{{event.name}}</h3>
+          </a>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<hr>
+
+
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="col-md-3">
+      <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#modal-event"><i class="fa fa-plus"></i> Add new event</button>
+    </div>
+  </div>
+</div>
+

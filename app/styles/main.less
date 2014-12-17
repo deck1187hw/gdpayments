@@ -8,6 +8,8 @@ body {
 
 @gdred: #D42031;
 @gdblue: #28255A;
+@grey: #A0A0A0;
+
 h1{
 	color: white;
 	background: @gdblue;
@@ -15,7 +17,7 @@ h1{
 	text-align: center;
 	font-size: 180%;
 }
-.table-players{
+.table-players, .table-events{
 	.playerImage{
 		width: 90px;
 		height: 90px;
@@ -23,8 +25,8 @@ h1{
 	}
 	
 	.details1{
-		.team{
-			color: #a0a0a0;
+		.team, .date{
+			color: @grey;
 		}
 		h3{
 			margin-top: 5px;
@@ -81,6 +83,24 @@ select.ng-valid {
 			background: fade(@gdblue,70%);
 		}
 	}
+}
+.event-disabled{
+	color: @grey;
+}
+.team-group {
+	max-width: 500px;
+}
+li.team-item {
+	width: 200px;
+	list-style: none;
+	display: inline-block;
+}
+.team-label {
+	font-weight: normal;
+}
+input[type=checkbox] {
+	zoom: 1.5;
+	vertical-align: sub;
 }
 
 /* Responsive: Portrait tablets and up */

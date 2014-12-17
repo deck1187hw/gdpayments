@@ -33,13 +33,13 @@ angular
         templateUrl: 'views/events.html',
         controller: 'EventsCtrl'
       })
+      .when('/events/:eventId', {
+        templateUrl: 'views/event-details.html',
+        controller: 'EventDetailsCtrl'
+      })
       .when('/players', {
         templateUrl: 'views/players.html',
         controller: 'PlayersCtrl'
-      })
-      .when('/laurie', {
-        templateUrl: 'views/laurie.html',
-        controller: 'LaurieCtrl'
       })
       .otherwise({
         redirectTo: '/'
@@ -47,4 +47,30 @@ angular
   })
   .run(function($rootScope) {
   	$rootScope.siteUrl = 'http://londongdhandball.co.uk';
+  })
+  .filter('stringToTimestamp', function() {
+    return function(dateSTR) {
+        dateSTR = dateSTR.replace(/-/g, "/"); // Replaces hyphens with slashes
+        return Date.parse(dateSTR + " -0000"); // No TZ subtraction on this sample
+    }
   });
+
+function getUrlWithOptions(siteUrl, options) {
+  var fullUrl = siteUrl + '/index.php?';
+  if (options.option === undefined) {
+    options.option = "com_gdpayments";
+  }
+  if (options.tmpl === undefined) {
+    options.tmpl = "component";
+  }
+  if (options.format === undefined) {
+    options.format = "raw";
+  }
+  if (options.callback === undefined) {
+    options.callback = 'JSON_CALLBACK';
+  }
+  for (var option in options) {
+    fullUrl += option + '=' + options[option] + '&';
+  }
+  return fullUrl;
+}

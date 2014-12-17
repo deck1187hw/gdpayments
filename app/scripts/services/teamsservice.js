@@ -15,7 +15,9 @@ angular.module('londongdpaymentsystemApp').factory('teamsService', function($htt
     getAllTeams: function() {
 		var promise;
       if ( !promise ) {
-        promise = $http.jsonp($rootScope.siteUrl+'/index.php?option=com_gdpayments&task=get_teams&tmpl=component&format=raw&callback=JSON_CALLBACK').then(function (response) {
+        var options = { task: 'get_teams' };
+        var fullUrl = getUrlWithOptions($rootScope.siteUrl, options);
+        promise = $http.jsonp(fullUrl).then(function (response) {
           return response.data;
         });
       }
