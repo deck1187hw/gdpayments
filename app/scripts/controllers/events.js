@@ -52,7 +52,7 @@ angular.module('londongdpaymentsystemApp')
           console.log('Error', errordata);
         }
       );
-    }
+    };
 
 
     var init = function() {

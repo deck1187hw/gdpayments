@@ -31,7 +31,7 @@
           <strong>Teams</strong>
           <ul>
             <li data-ng-repeat="team in selectedTeams" class="team-item">
-              <input type="checkbox" data-ng-model="team.selected" data-ng-init="team.selected=true">
+              <input type="checkbox" data-ng-model="team.selected">
               <label for="team-{{team.id}}" class="team-label">{{team.name}}</label>
             </li>
           </ul>
