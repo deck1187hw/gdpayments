@@ -54,7 +54,20 @@ angular.module('londongdpaymentsystemApp')
           console.log('Error', errorData);
         }
       );
-    }
+    };
+
+    var getEventMemberLink = function() {
+      var promise = eventsService.getEventMemberLink($routeParams.eventId);
+      promise.then(
+        function(resp) {
+          $scope.members = resp;
+          console.log('event members', resp);
+        },
+        function(errorData) {
+          console.log('Error', errorData);
+        }
+      );
+    };
 
     var init = function() {
       $scope.eventTypeList = ["training", "match", "other event"];
@@ -62,6 +75,7 @@ angular.module('londongdpaymentsystemApp')
       getEvent();
       getAllTeams();
       getEventTeamLink();
+      getEventMemberLink();
     };
     init();
   }

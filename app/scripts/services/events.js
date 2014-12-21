@@ -50,12 +50,30 @@ angular.module('londongdpaymentsystemApp').factory('eventsService', function($ht
       if (!promise) {
         var options = { task: 'get_event_team_link', eventId: id };
         var fullUrl = getUrlWithOptions($rootScope.siteUrl, options);
-        promise = $http.jsonp(fullUrl).then(function (response) {
-          return response.data;
-        },
-        function(errordata) {
-          console.log('Error get_event_team_link', errordata);
-        });
+        promise = $http.jsonp(fullUrl).then(
+          function (response) {
+            return response.data;
+          },
+          function(errordata) {
+            console.log('Error get_event_team_link', errordata);
+          }
+        );
+      }
+      return promise;
+    },
+    getEventMemberLink: function(id) {
+      var promise;
+      if (!promise) {
+        var options = { task: 'get_event_member_link', eventId: id };
+        var fullUrl = getUrlWithOptions($rootScope.siteUrl, options);
+        promise = $http.jsonp(fullUrl).then(
+          function(response) {
+            return response.data;
+          },
+          function(errordata) {
+            console.log('Error get_event_member_link', errordata);
+          }
+        );
       }
       return promise;
     }
