@@ -68,6 +68,27 @@ angular.module('londongdpaymentsystemApp')
       );
     };
 
+    /*var drag_and_drop_definitions = function() {
+      $scope.drag = function(event) {
+        event.dataTransfer.setData("text", event.target.id);
+      };
+      $scope.allow_drop = function(event) {
+        event.preventDefault();
+      };
+      $scope.drop = function(event) {
+        event.preventDefault();
+        var data = event.dataTransfer.getData("text");
+        var element = event.target;
+        while (element.tagName != "TABLE" && element.parentNode) {
+          element = element.parentNode;
+        }
+        if (element.tagName != "TABLE") {
+          element = element.getElementsByTagName("table")[0];
+        }
+        element.appendChild(document.getElementById(data));
+      };
+    };*/
+
     var init = function() {
       $scope.eventTypeList = ["training", "match", "other event"];
       $scope.today = new Date().toISOString().split("T")[0];
@@ -75,6 +96,15 @@ angular.module('londongdpaymentsystemApp')
       getAllTeams();
       getEventTeamLink();
       getEventMemberLink();
+      //drag_and_drop_definitions();
+      $scope.onDragComplete = function(data, evt){
+       console.log("drag success, data:", data);
+       console.log("drag success, evt:", evt);
+      };
+      $scope.onDropComplete = function(data, evt){
+        console.log("drop success, data:", data);
+        console.log("drop success, evt:", evt);
+      };
     };
     init();
   }

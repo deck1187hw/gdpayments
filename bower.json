@@ -19,7 +19,8 @@
     "ng-file-upload": "~1.6.12",
     "angular-sweetalert": "~1.0.3",
     "jquery-ui": "~1.11.2",
-    "jquery-ui-touch-punch": "*"
+    "jquery-ui-touch-punch": "*",
+    "ngDraggable": "*"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.0",
