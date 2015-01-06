@@ -93,9 +93,7 @@ angular.module('londongdpaymentsystemApp')
           for (var obj in objects) {
             str.push(encodeURIComponent(obj) + '=' + encodeURIComponent(objects[obj]));
           }         
-          var str2 = str.join('&');
-          console.log('str2', str2);
-          return str2;
+          return str.join('&');
         }
       };
 
