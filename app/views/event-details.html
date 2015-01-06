@@ -58,12 +58,11 @@
         <h4 class="modal-title" id="modal-event-label">Modify participants</h4>
       </div>
 
-      <div class="col-md-6">
+      <div class="col-md-6" ng-drop="true" ng-drop-success="removeMemberFromEvent($data, $event)">
         <h4>Not selected</h4>
         <table class="table table-players table-not-selected">
           <tr data-ng-repeat="player in members | filter: {id_event:'!'} | orderBy: 'name'"
-            id="player-{{player.id}}"
-            ng-drag="true" ng-drag-data="obj" ng-drag-success="onDragComplete($data, $event)">
+            id="player-{{player.id}}" ng-drag="true" ng-drag-data="{ isSelected: false, playerId: {{player.id}} }">
 
             <td class="playerImage">
               <div ng-show="player.image">
@@ -84,11 +83,11 @@
         </table>
       </div>
 
-      <div class="col-md-6" ng-drop="true" ng-drop-success="onDropComplete($data, $event)">
+      <div class="col-md-6" ng-drop="true" ng-drop-success="addMemberToEvent($data, $event)">
         <h4 width="100%">Selected</h4>
         <table class="table table-players table-selected">
           <tr data-ng-repeat="player in members | filter: {id_event:'!!'} | orderBy: 'name'"
-            id="player-{{player.id}}">
+            id="player-{{player.id}}" ng-drag="true" ng-drag-data="{ isSelected: true, playerId: {{player.id}} }">
 
             <td class="playerImage">
               <div ng-show="player.image">

@@ -68,44 +68,101 @@ angular.module('londongdpaymentsystemApp')
       );
     };
 
-    /*var drag_and_drop_definitions = function() {
-      $scope.drag = function(event) {
-        event.dataTransfer.setData("text", event.target.id);
+    var addMemberToEvent = function(data, event) {
+      if (data.isSelected) {
+        return;
+      }
+      data = { eventId: $routeParams.eventId, playerId: data.playerId };
+
+      var options = { task: "add_player_to_event" };
+      var fullUrl = getUrlWithOptions($rootScope.siteUrl, options);
+      var header = {
+        'Content-Type': 'application/x-www-form-urlencoded'
       };
-      $scope.allow_drop = function(event) {
-        event.preventDefault();
-      };
-      $scope.drop = function(event) {
-        event.preventDefault();
-        var data = event.dataTransfer.getData("text");
-        var element = event.target;
-        while (element.tagName != "TABLE" && element.parentNode) {
-          element = element.parentNode;
+
+      var messageObject = {
+        method: 'POST',
+        url: fullUrl,
+        data: data,
+        headers: header,
+        transformRequest: function(objects) {
+          var str = [];
+          for (var obj in objects) {
+            str.push(encodeURIComponent(obj) + '=' + encodeURIComponent(objects[obj]));
+          }         
+          return str.join('&');
         }
-        if (element.tagName != "TABLE") {
-          element = element.getElementsByTagName("table")[0];
-        }
-        element.appendChild(document.getElementById(data));
       };
-    };*/
+
+      console.log(messageObject);
+
+      $http(messageObject)
+      .success(function(data) {
+        if (data.indexOf('exists') > -1) {
+          console.log("Player with ID" + data.playerId + " already associated with event of ID " + data.eventId);
+        } else {
+          console.log("Player with ID" + data.playerId + " successfully associated with event of ID " + data.eventId);
+          init();
+        }
+      })
+      .error(function(data) {
+        console.log("failure player id");
+      });
+    };
+
+    var removeMemberFromEvent = function(data, event) {
+      if (!data.isSelected) {
+        return;
+      }
+      data = { eventId: $routeParams.eventId, playerId: data.playerId };
+
+      var options = { task: "remove_player_from_event" };
+      var fullUrl = getUrlWithOptions($rootScope.siteUrl, options);
+      var header = {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      };
+
+      var messageObject = {
+        method: 'POST',
+        url: fullUrl,
+        data: data,
+        headers: header,
+        transformRequest: function(objects) {
+          var str = [];
+          for (var obj in objects) {
+            str.push(encodeURIComponent(obj) + '=' + encodeURIComponent(objects[obj]));
+          }         
+          return str.join('&');
+        }
+      };
+
+      console.log(messageObject);
+
+      $http(messageObject)
+      .success(function(data) {
+        if (data.indexOf('inexistant') > -1) {
+          console.log("Player with ID" + data.playerId + " not associated with event of ID " + data.eventId);
+        } else {
+          console.log("Player with ID" + data.playerId + " successfully unassociated with event of ID " + data.eventId);
+          init();
+        }
+      })
+      .error(function(data) {
+        console.log("failure player id");
+      });
+    };
 
     var init = function() {
       $scope.eventTypeList = ["training", "match", "other event"];
       $scope.today = new Date().toISOString().split("T")[0];
+      $scope.addMemberToEvent = addMemberToEvent;
+      $scope.removeMemberFromEvent = removeMemberFromEvent;
       getEvent();
       getAllTeams();
       getEventTeamLink();
       getEventMemberLink();
-      //drag_and_drop_definitions();
-      $scope.onDragComplete = function(data, evt){
-       console.log("drag success, data:", data);
-       console.log("drag success, evt:", evt);
-      };
-      $scope.onDropComplete = function(data, evt){
-        console.log("drop success, data:", data);
-        console.log("drop success, evt:", evt);
-      };
     };
+
     init();
   }
 );
